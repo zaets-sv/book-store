@@ -27,7 +27,8 @@ function configureRoutes(routes: RoutesService) {
         name: '::Menu:Books',
         parentName: '::Menu:BookStore',
         layout: eLayoutType.application,
-      },
+        requiredPolicy: 'BookStore.Books',
+      }
     ]);
   };
 }
