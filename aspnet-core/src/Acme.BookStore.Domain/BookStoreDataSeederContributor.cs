@@ -42,6 +42,17 @@ namespace Acme.BookStore
                     },
                     autoSave: true
                 );
+
+                await _bookRepository.InsertAsync(
+                    new Book
+                    {
+                        Name = "Test",
+                        Type = BookType.Horror,
+                        PublishDate = new DateTime(1995, 10, 10),
+                        Price = 99.0f
+                    },
+                    autoSave: true
+                );
             }
         }
     }
