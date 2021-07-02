@@ -31,12 +31,13 @@ export class BookService {
     },
     { apiName: this.apiName });
 
-  getAuthorLookup = () =>
-    this.restService.request<any, ListResultDto<AuthorLookupDto>>({
+  getAuthorLookup(){
+    return this.restService.request<any, ListResultDto<AuthorLookupDto>>({
       method: 'GET',
       url: '/api/app/book/author-lookup',
     },
     { apiName: this.apiName });
+  }
 
   getList = (input: PagedAndSortedResultRequestDto) =>
     this.restService.request<any, PagedResultDto<BookDto>>({
