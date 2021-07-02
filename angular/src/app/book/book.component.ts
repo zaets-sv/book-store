@@ -93,4 +93,15 @@ export class BookComponent implements OnInit {
       }
     });
   }
+
+  makeOrder(id: string){
+    this.confirmation.info('', '::MakeAnOrder').subscribe((status) => {
+       if (status === Confirmation.Status.confirm) {
+         console.log(true)
+
+         
+         //this.bookService.delete(id).subscribe(() => this.list.get());
+       }
+    });
+  }
 }
