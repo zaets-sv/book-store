@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 using Acme.BookStore.Authors;
 using Acme.BookStore.Books;
+using Acme.BookStore.BooksOrder;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 
 namespace Acme.BookStore
 {
@@ -14,15 +16,22 @@ namespace Acme.BookStore
         private readonly IRepository<Book, Guid> _bookRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly AuthorManager _authorManager;
+        private readonly IRepository<BookOrder, Guid> _bookOrderRepository;
+        private readonly ICurrentUser _currentUser;
+        
 
         public BookStoreDataSeederContributor(
             IRepository<Book, Guid> bookRepository,
             IAuthorRepository authorRepository,
-            AuthorManager authorManager)
+            AuthorManager authorManager,
+            IRepository<BookOrder, Guid> bookOrderRepository,
+            ICurrentUser currentUser)
         {
             _bookRepository = bookRepository;
             _authorRepository = authorRepository;
             _authorManager = authorManager;
+            _bookOrderRepository = bookOrderRepository;
+            _currentUser = currentUser;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -71,6 +80,16 @@ namespace Acme.BookStore
                 },
                 autoSave: true
             );
+
+           /* await _bookOrderRepository.InsertAsync(
+                new BookOrder
+                {
+                    BookId = firstBook.Id,
+                    ClientId = (Guid)_currentUser.Id,
+                },
+                autoSave: true
+            );*/
+            
         }
     }
 }

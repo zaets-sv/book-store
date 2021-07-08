@@ -213,7 +213,6 @@ namespace Acme.BookStore.Data
                     return currentDirectory.FullName;
                 }
             }
-
             return null;
         }
     }

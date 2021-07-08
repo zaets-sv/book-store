@@ -10,26 +10,26 @@ namespace Acme.BookStore.Permissions
         {
             var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName, L("Permission:BookStore"));
 
-            var booksPermission = bookStoreGroup.AddPermission(BookStorePermissions.Books.Default, L("Permission:Books"));
+            var booksPermission = 
+                bookStoreGroup.AddPermission(BookStorePermissions.Books.Default, L("Permission:Books"));
             booksPermission.AddChild(BookStorePermissions.Books.Create, L("Permission:Books.Create"));
             booksPermission.AddChild(BookStorePermissions.Books.Edit, L("Permission:Books.Edit"));
             booksPermission.AddChild(BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
-            booksPermission.AddChild(BookStorePermissions.Books.MakeOrder, L("Permission:Books.MakeOrder"));
+            booksPermission.AddChild(BookStorePermissions.Books.MakeOrder, L("Permission:BooksOrder.MakeOrder"));
 
-            var authorsPermission = bookStoreGroup.AddPermission(
-                BookStorePermissions.Authors.Default, L("Permission:Authors"));
 
-            authorsPermission.AddChild(
-                BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
+            var authorsPermission = 
+                bookStoreGroup.AddPermission(BookStorePermissions.Authors.Default, L("Permission:Authors"));
+            authorsPermission.AddChild(BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
+            authorsPermission.AddChild(BookStorePermissions.Authors.Edit, L("Permission:Authors.Edit"));
+            authorsPermission.AddChild(BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
 
-            authorsPermission.AddChild(
-                BookStorePermissions.Authors.Edit, L("Permission:Authors.Edit"));
-
-            authorsPermission.AddChild(
-                BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
-            
-            authorsPermission.AddChild(
-                BookStorePermissions.Authors.MakeOrder, L("Permission:Authors.MakeOrder"));
+            var booksOrderPermission = 
+                bookStoreGroup.AddPermission(BookStorePermissions.BooksOrder.Default, L("Permission:BooksOrder"));
+            booksOrderPermission.AddChild(BookStorePermissions.BooksOrder.Client, L("Permission:BooksOrder.Client"));
+            booksOrderPermission.AddChild(BookStorePermissions.BooksOrder.Create, L("Permission:BooksOrder.Create"));
+            booksOrderPermission.AddChild(BookStorePermissions.BooksOrder.Delete, L("Permission:BooksOrder.Delete"));
+            booksOrderPermission.AddChild(BookStorePermissions.BooksOrder.MakeOrder, L("Permission:BooksOrder.MakeOrder"));
         }
 
         private static LocalizableString L(string name)
