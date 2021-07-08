@@ -1,5 +1,4 @@
-﻿using Acme.BookStore.BooksOrder;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +18,5 @@ namespace Acme.BookStore.Books
         public float Price { get; set; }
 
         public Guid AuthorId { get; set; }
-
-       /* public Guid BookOrderId { get; set; }
-        public BookOrder BookOrder { get; set; }*/
     }
 }

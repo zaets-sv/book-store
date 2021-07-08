@@ -6,6 +6,7 @@ import { NgbDateNativeAdapter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { BookOrderService } from '@proxy/books-order';
 
 @Component({
   selector: 'app-book',
@@ -30,7 +31,8 @@ export class BookComponent implements OnInit {
     public readonly list: ListService,
     private bookService: BookService,
     private fb: FormBuilder,
-    private confirmation: ConfirmationService
+    private confirmation: ConfirmationService,
+    private bookOrderService: BookOrderService,
   ) {
     this.authors$ = this.bookService.getAuthorLookup().pipe(map((r) => r.items));
   }
@@ -95,11 +97,14 @@ export class BookComponent implements OnInit {
   }
 
   makeOrder(id: string){
+    const bookOrder = { bookId: id };
     this.confirmation.info('', '::MakeAnOrder').subscribe((status) => {
        if (status === Confirmation.Status.confirm) {
          console.log(true)
-
          
+         console.log("id -> " + bookOrder.bookId);
+         this.bookOrderService.create(bookOrder).subscribe();
+         this.list.get();
          //this.bookService.delete(id).subscribe(() => this.list.get());
        }
     });

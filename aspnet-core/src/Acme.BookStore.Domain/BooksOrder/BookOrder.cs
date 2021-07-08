@@ -1,15 +1,16 @@
 ﻿using Acme.BookStore.Books;
 using Acme.BookStore.Users;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Acme.BookStore.BooksOrder
 {
-    public class BookOrder : AuditedAggregateRoot<Guid>
+    public class BookOrder: FullAuditedEntity<Guid>
     {
         public Guid BookId { get; set; }
-        public Guid UserId { get; set; }
-      /*  public List<Book> Books { get; set; } = new List<Book>();*/
+        
+        public Guid ClientId { get; set; }
     }
 }

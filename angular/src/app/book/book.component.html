@@ -49,7 +49,7 @@
         </button>
 
          <!-- Add the abpPermission directive -->
-         <button *abpPermission="'BookStore.Books.MakeOrder'" ngbDropdownItem (click)="makeOrder(row.id)">
+         <button *abpPermission="'BookStore.BooksOrder.MakeOrder'" ngbDropdownItem (click)="makeOrder(row.id)">
           Make Order
           <!-- {{ '::Delete' | abpLocalization }} -->
         </button>

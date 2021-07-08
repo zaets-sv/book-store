@@ -28,13 +28,12 @@
     "Enum:BookType:6": "Science",
     "Enum:BookType:7": "Science fiction",
     "Enum:BookType:8": "Poetry",
-
     "Permission:BookStore": "Book Store",
     "Permission:Books": "Book Management",
     "Permission:Books.Create": "Creating new books",
     "Permission:Books.Edit": "Editing the books",
     "Permission:Books.Delete": "Deleting the books",
-    "Permission:Books.MakeOrder": "Make order the books",
+
     "BookStore:00001": "There is already an author with the same name: {name}",
     "Permission:Authors": "Author Management",
     "Permission:Authors.Create": "Creating new authors",
@@ -44,6 +43,14 @@
     "Authors": "Authors",
     "AuthorDeletionConfirmationMessage": "Are you sure to delete the author '{0}'?",
     "BirthDate": "Birth date",
-    "NewAuthor": "New author"
+    "NewAuthor": "New author",
+
+    "Menu:BooksOrder": "Books Order",
+    "BooksOrder": "Books Order",
+    "Permission:BooksOrder": "Order Management",
+    "Permission:BooksOrder.Create": "Creating new orders",
+    "Permission:BooksOrder.Delete": "Deleting the orders",
+    "Permission:BooksOrder.Client": "Check my orders",
+    "Permission:BooksOrder.MakeOrder": "Make order the books"
   }
 }

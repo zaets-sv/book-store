@@ -11,7 +11,7 @@ namespace Acme.BookStore.Authors
         public DateTime BirthDate { get; set; }
         public string ShortBio { get; set; }
 
-        private Author()
+        private Author(object p, string bookId)
         {
             /* This constructor is for deserialization / ORM purpose */
         }
