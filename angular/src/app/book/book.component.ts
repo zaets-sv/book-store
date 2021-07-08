@@ -32,7 +32,7 @@ export class BookComponent implements OnInit {
     private bookService: BookService,
     private fb: FormBuilder,
     private confirmation: ConfirmationService,
-    private bookOrderService: BookOrderService,
+    public readonly bookOrderService: BookOrderService,
   ) {
     this.authors$ = this.bookService.getAuthorLookup().pipe(map((r) => r.items));
   }

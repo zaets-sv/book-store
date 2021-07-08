@@ -1,4 +1,5 @@
 import { ListService, PagedResultDto } from '@abp/ng.core';
+import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
 import { BookOrderDto, BookOrderService } from '../proxy/books-order';
 
@@ -10,27 +11,35 @@ import { BookOrderDto, BookOrderService } from '../proxy/books-order';
 })
 export class BookOrderComponent implements OnInit {
 
-  order = { items: [], totalCount: 0 } as PagedResultDto<BookOrderDto>;
-  allOrder = { items: [], totalCount: 0 } as PagedResultDto<BookOrderDto>;
-  isModalOpen = false;
-  selectedId = "";
-  reason = "";
+  allBooksOrder = { items: [], totalCount: 0 } as PagedResultDto<BookOrderDto>;
+  orderId : number;
 
   constructor( 
     public readonly list: ListService, 
-    private bookOrderService: BookOrderService
+    public readonly bookOrderService: BookOrderService,
+    private confirmation: ConfirmationService,
     ) { }
 
   ngOnInit(): void {
 
     this.getAllBooksOrder();
-    console.log("this.allOrder -> " + this.allOrder.totalCount)
+    
   }
 
   getAllBooksOrder(): void {
+    this.orderId = 0;
     const orderStreamCreator = (query) => this.bookOrderService.getList(query);
     this.list.hookToQuery(orderStreamCreator).subscribe((response) => {
-      this.allOrder = response;
+      this.allBooksOrder = response;
+    });
+  }
+
+  delete(id: string) {
+    this.confirmation.info('', '::MakeOrder').subscribe((status) => {
+      if (status === Confirmation.Status.confirm) {
+        console.log(true)
+        this.bookOrderService.delete(id).subscribe(() => this.list.get());
+      }
     });
   }
 }
