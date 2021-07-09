@@ -90,15 +90,18 @@ namespace Acme.BookStore.BooksOrder
 
         public async Task<PagedResultDto<BookOrderDto>> GetListAsync(GetBookOrderListDto input)
         {
+
             var orders = await _bookOrderRepository.GetListAsync(
-                input.SkipCount,
-                input.MaxResultCount,
-                input.Sorting
+            input.SkipCount,
+            input.MaxResultCount,
+            input.Sorting
             );
+
             var users = await _userRepository.GetListAsync();
             var books = await _bookRepository.GetListAsync();
 
             var bookOrderDto = ObjectMapper.Map<List<BookOrder>, List<BookOrderDto>>(orders);
+
             bookOrderDto.ForEach((order) =>
             {
                 order.ClientName = users.Find(user => user.Id == order.ClientId).UserName;
@@ -107,10 +110,32 @@ namespace Acme.BookStore.BooksOrder
 
             var totalCount = await _bookOrderRepository.CountAsync();
 
-            return new PagedResultDto<BookOrderDto>(
-                totalCount,
-                bookOrderDto
+            return _currentUser.Roles[0] == "admin" ? new PagedResultDto<BookOrderDto>(totalCount, bookOrderDto) :  null;
+        } 
+        
+        public async Task<PagedResultDto<BookOrderDto>> GetClientListAsync(GetBookOrderListDto input)
+        {
+            var orders = await _bookOrderRepository.GetClientListAsync(
+                input.SkipCount,
+                input.MaxResultCount,
+                input.Sorting
             );
+
+            var user = await _userRepository.GetListAsync();
+            var books = await _bookRepository.GetListAsync();
+
+            var current = _currentUser.Roles[0];
+
+            var bookOrderDto = ObjectMapper.Map<List<BookOrder>, List<BookOrderDto>>(orders);
+            bookOrderDto.ForEach((order) =>
+            {
+                order.ClientName = user.Find(user => user.Id == order.ClientId).UserName;
+                order.BookName = books.Find(book => book.Id == order.BookId).Name;
+            });
+
+            var totalCount = orders.Count;
+
+            return _currentUser.Roles[0] == "client" ? new PagedResultDto<BookOrderDto>(totalCount, bookOrderDto) : null;
         }
 
         [Authorize(BookStorePermissions.BooksOrder.Create)]

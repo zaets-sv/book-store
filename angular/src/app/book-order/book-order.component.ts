@@ -12,24 +12,29 @@ import { BookOrderDto, BookOrderService } from '../proxy/books-order';
 export class BookOrderComponent implements OnInit {
 
   allBooksOrder = { items: [], totalCount: 0 } as PagedResultDto<BookOrderDto>;
-  orderId : number;
 
   constructor( 
     public readonly list: ListService, 
+    public readonly clientList: ListService,
     public readonly bookOrderService: BookOrderService,
     private confirmation: ConfirmationService,
     ) { }
 
   ngOnInit(): void {
-
     this.getAllBooksOrder();
-    
+    this.getClientAllBooksOrder();
   }
 
   getAllBooksOrder(): void {
-    this.orderId = 0;
-    const orderStreamCreator = (query) => this.bookOrderService.getList(query);
-    this.list.hookToQuery(orderStreamCreator).subscribe((response) => {
+    const booksOrder = (query) => this.bookOrderService.getList(query);
+    this.list.hookToQuery(booksOrder).subscribe((response) => {
+      this.allBooksOrder = response;
+    });
+  }
+
+  getClientAllBooksOrder(): void {
+    const booksOrder = (query) => this.bookOrderService.getClientList(query);
+    this.clientList.hookToQuery(booksOrder).subscribe((response) => {
       this.allBooksOrder = response;
     });
   }

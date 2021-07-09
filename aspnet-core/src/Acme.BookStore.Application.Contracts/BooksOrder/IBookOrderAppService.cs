@@ -11,6 +11,8 @@ namespace Acme.BookStore.BooksOrder
 
         Task<PagedResultDto<BookOrderDto>> GetListAsync(GetBookOrderListDto input);
 
+        Task<PagedResultDto<BookOrderDto>> GetClientListAsync(GetBookOrderListDto input);
+
         Task<BookOrderDto> CreateAsync(CreateBookOrderDto input);
 
         Task UpdateAsync(Guid id, UpdateBookOrderDto input);
