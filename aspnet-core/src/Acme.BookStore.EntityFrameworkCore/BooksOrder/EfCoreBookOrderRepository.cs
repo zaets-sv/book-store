@@ -83,5 +83,16 @@ namespace Acme.BookStore.BooksOrder
                     order => order.BookId == id
                  ).Select(order => order.Id).ToListAsync();
         }
+
+        public async Task<List<BookOrder>> CreateUsedBookAsync(string filter = null)
+        {
+            var dbSet = await GetDbSetAsync();
+            var currentId = _currentUser.Id;
+            return await dbSet
+            .Where(
+                order => order.ClientId == currentId
+             )
+            .ToListAsync();
+        }
     }
 }

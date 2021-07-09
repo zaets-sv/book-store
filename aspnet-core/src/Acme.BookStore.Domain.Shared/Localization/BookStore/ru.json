@@ -2,7 +2,22 @@
   "culture": "ru",
   "texts": {
     "Menu:Home": "Главная",
+    "Menu:BookStore": "Книжный магазин",
+    "Menu:BooksOrder": "Выбранные книги",
+    "Menu:Books": "Книги",
+    "UserNameShouldBeUniqueMessage": "Эта книга уже Ваша!",
     "Welcome": "Добро пожаловать",
+    "Actions": "Действия",
+    "Close": "Закрыть",
+    "Delete": "Удалить",
+    "Edit": "Редактировтаь",
+    "PublishDate": "Дата публикации",
+    "NewBook": "Новая книга",
+    "Name": "Имя",
+    "Type": "Тип",
+    "Price": "Цена",
+    "CreationTime": "Время создания",
+    "AreYouSure": "Вы уверены?",
     "LongWelcomeMessage": "Добро пожаловать в приложение. Этот запущенный проект основан на фреймворке ABP. Для получения дополнительной информации посетите сайт abp.io."
   }
 }

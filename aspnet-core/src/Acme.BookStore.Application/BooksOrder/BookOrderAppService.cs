@@ -49,6 +49,7 @@ using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
@@ -90,7 +91,6 @@ namespace Acme.BookStore.BooksOrder
 
         public async Task<PagedResultDto<BookOrderDto>> GetListAsync(GetBookOrderListDto input)
         {
-
             var orders = await _bookOrderRepository.GetListAsync(
             input.SkipCount,
             input.MaxResultCount,
@@ -124,9 +124,8 @@ namespace Acme.BookStore.BooksOrder
             var user = await _userRepository.GetListAsync();
             var books = await _bookRepository.GetListAsync();
 
-            var current = _currentUser.Roles[0];
-
             var bookOrderDto = ObjectMapper.Map<List<BookOrder>, List<BookOrderDto>>(orders);
+
             bookOrderDto.ForEach((order) =>
             {
                 order.ClientName = user.Find(user => user.Id == order.ClientId).UserName;
@@ -141,15 +140,37 @@ namespace Acme.BookStore.BooksOrder
         [Authorize(BookStorePermissions.BooksOrder.Create)]
         public async Task<BookOrderDto> CreateAsync(CreateBookOrderDto input)
         {
-            var order = new BookOrder
+
+            var orders = await _bookOrderRepository.CreateUsedBookAsync();
+
+            var currentBook = input.BookId;
+            bool isBook = false;
+
+            for (int i = 0; i < orders.Count; i++)
             {
-                ClientId = (Guid)_currentUser.Id,
-                BookId = input.BookId,
-            };
+                if (orders[i].BookId == currentBook)
+                {
+                    isBook = true;
+                    break;
+                }
+            }
 
-            await _bookOrderRepository.InsertAsync(order);
+            if (!isBook)
+            {
+                var order = new BookOrder
+                {
+                    ClientId = (Guid)_currentUser.Id,
+                    BookId = input.BookId
+                };
 
-            return ObjectMapper.Map<BookOrder, BookOrderDto>(order);
+                await _bookOrderRepository.InsertAsync(order);
+
+                return ObjectMapper.Map<BookOrder, BookOrderDto>(order);
+            }
+            else
+            {
+                throw new UserFriendlyException(L["UserNameShouldBeUniqueMessage"]);
+            }
         }
 
         [Authorize(BookStorePermissions.BooksOrder.Edit)]
