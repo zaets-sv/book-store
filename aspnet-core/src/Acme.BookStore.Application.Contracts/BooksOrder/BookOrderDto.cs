@@ -13,5 +13,7 @@ namespace Acme.BookStore.BooksOrder
         public Guid ClientId { get; set; }
        
         public string ClientName { get; set; }
+
+        public bool Status { get; set; }
     }
 }

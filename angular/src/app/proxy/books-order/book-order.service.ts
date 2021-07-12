@@ -55,5 +55,12 @@ export class BookOrderService {
     },
     { apiName: this.apiName });
 
+  updateStatus = (id: string) =>
+    this.restService.request<any, void>({
+      method: 'PUT',
+      url: `/api/app/book-order/${id}/status`,
+    },
+    { apiName: this.apiName });
+
   constructor(private restService: RestService) {}
 }

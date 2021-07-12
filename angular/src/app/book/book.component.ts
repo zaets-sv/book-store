@@ -100,7 +100,7 @@ export class BookComponent implements OnInit {
     const bookOrder = { bookId: id };
     this.confirmation.info('', '::MakeAnOrder').subscribe((status) => {
        if (status === Confirmation.Status.confirm) {
-         this.bookOrderService.create(bookOrder).subscribe();
+         this.bookOrderService.create(bookOrder).subscribe(() => this.list.get());;
        }
     });
   }

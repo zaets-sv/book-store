@@ -15,6 +15,7 @@
     "Name": "Name",
     "Type": "Type",
     "Price": "Price",
+    "MakeOrder": "Make order",
     "CreationTime": "Creation time",
     "AreYouSure": "Are you sure?",
     "AreYouSureToDelete": "Are you sure you want to delete this item?",
@@ -51,7 +52,9 @@
     "Permission:BooksOrder": "Order Management",
     "Permission:BooksOrder.Create": "Creating new orders",
     "Permission:BooksOrder.Delete": "Deleting the orders",
+    "Permission:BooksOrder.Status": "Change status",
     "Permission:BooksOrder.Client": "Check my orders",
-    "Permission:BooksOrder.MakeOrder": "Make order the books"
+    "Permission:BooksOrder.MakeOrder": "Make order the books",
+    "Confirm": "Confirm purchase"
   }
 }

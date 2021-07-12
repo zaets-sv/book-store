@@ -1,6 +1,7 @@
 import { ListService, PagedResultDto } from '@abp/ng.core';
 import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BookOrderDto, BookOrderService } from '../proxy/books-order';
 
 @Component({
@@ -12,7 +13,8 @@ import { BookOrderDto, BookOrderService } from '../proxy/books-order';
 export class BookOrderComponent implements OnInit {
 
   allBooksOrder = { items: [], totalCount: 0 } as PagedResultDto<BookOrderDto>;
-
+  form: FormGroup;
+  
   constructor( 
     public readonly list: ListService, 
     public readonly clientList: ListService,
@@ -37,6 +39,7 @@ export class BookOrderComponent implements OnInit {
     this.clientList.hookToQuery(booksOrder).subscribe((response) => {
       this.allBooksOrder = response;
     });
+    this.list.get();
   }
 
   delete(id: string) {
@@ -44,6 +47,14 @@ export class BookOrderComponent implements OnInit {
       if (status === Confirmation.Status.confirm) {
         console.log(true)
         this.bookOrderService.delete(id).subscribe(() => this.list.get());
+      }
+    });
+  }
+  updateStatus(id: string) {
+    this.confirmation.info('', 'Change status?').subscribe((status) => {
+      if (status === Confirmation.Status.confirm) {
+        console.log(true)
+        this.bookOrderService.updateStatus(id).subscribe(() => this.list.get());
       }
     });
   }
