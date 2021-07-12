@@ -24,6 +24,12 @@
 
               <div ngbDropdownMenu>
 
+                <button abpPermission="BookStore.BooksOrder.Status"
+                      ngbDropdownItem
+                      (click)="updateStatus(row.id)">
+                  {{ 'AbpAccount::Confirm' | abpLocalization }}
+                </button>
+
                 <button abpPermission="BookStore.BooksOrder.Delete"
                         ngbDropdownItem
                         (click)="delete(row.id)">
@@ -33,6 +39,12 @@
             </div>
           </ng-template>
         </ngx-datatable-column>
+          <ngx-datatable-column [name]="'::Status' | abpLocalization">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <p *ngIf="row.status">Order confirmed</p>
+              <p *ngIf="!row.status">Waiting confirm</p>            
+            </ng-template>
+          </ngx-datatable-column>
         <ngx-datatable-column [name]="'::ClientName' | abpLocalization" prop="clientName"></ngx-datatable-column>
         <ngx-datatable-column [name]="'::Book' | abpLocalization" prop="bookName"></ngx-datatable-column>
       </ngx-datatable>

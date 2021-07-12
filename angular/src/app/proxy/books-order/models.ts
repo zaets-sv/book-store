@@ -5,6 +5,7 @@ export interface BookOrderDto extends EntityDto<string> {
   bookName?: string;
   clientId?: string;
   clientName?: string;
+  status: boolean;
 }
 
 export interface CreateBookOrderDto {
