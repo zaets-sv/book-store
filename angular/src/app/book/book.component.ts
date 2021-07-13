@@ -7,14 +7,18 @@ import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BookOrderService } from '@proxy/books-order';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.scss'],
   providers: [ListService, { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }],
+  
 })
 export class BookComponent implements OnInit {
+  currentDate;
+
   book = { items: [], totalCount: 0 } as PagedResultDto<BookDto>;
 
   form: FormGroup;
@@ -28,6 +32,7 @@ export class BookComponent implements OnInit {
   isModalOpen = false;
 
   constructor(
+    public datepipe: DatePipe,
     public readonly list: ListService,
     private bookService: BookService,
     private fb: FormBuilder,
@@ -43,6 +48,12 @@ export class BookComponent implements OnInit {
     this.list.hookToQuery(bookStreamCreator).subscribe((response) => {
       this.book = response;
     });
+
+    this.currentDate = {day: new Date().getDate(), 
+      month: new Date().getMonth() + 1, 
+      year : new Date().getFullYear()}
+
+      //console.log("Date -> " + this.datepipe.transform(new Date(), 'yyyy/MM/dd'))
   }
 
   createBook() {
