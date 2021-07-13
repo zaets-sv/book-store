@@ -1,5 +1,6 @@
 import { ListService, PagedResultDto } from '@abp/ng.core';
 import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BookOrderDto, BookOrderService } from '../proxy/books-order';
@@ -13,9 +14,12 @@ import { BookOrderDto, BookOrderService } from '../proxy/books-order';
 export class BookOrderComponent implements OnInit {
 
   allBooksOrder = { items: [], totalCount: 0 } as PagedResultDto<BookOrderDto>;
+  detailsBook = {} as BookOrderDto;
   form: FormGroup;
-  
+  isModalOpen = false;
+
   constructor( 
+    public datepipe: DatePipe,
     public readonly list: ListService, 
     public readonly clientList: ListService,
     public readonly bookOrderService: BookOrderService,
@@ -57,5 +61,14 @@ export class BookOrderComponent implements OnInit {
         this.bookOrderService.updateStatus(id).subscribe(() => this.list.get());
       }
     });
+  }
+
+  details(id: string) {
+      this.bookOrderService.get(id).subscribe((response) => {
+        this.detailsBook = response;
+        console.log("this.detailsBook => " + this.detailsBook);
+        
+        this.isModalOpen = true;
+      });
   }
 }

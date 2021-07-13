@@ -18,6 +18,9 @@
     "MakeOrder": "Make order",
     "CreationTime": "Creation time",
     "AreYouSure": "Are you sure?",
+    "BookName": "Book name",
+    "AuthorName": "Author name",
+    "BookType": "Book type",
     "AreYouSureToDelete": "Are you sure you want to delete this item?",
     "MakeAnOrder": "Order a book?",
     "UserNameShouldBeUniqueMessage": "This book is already your!",
@@ -43,10 +46,13 @@
     "Permission:Authors.Delete": "Deleting the authors",
     "Menu:Authors": "Authors",
     "Authors": "Authors",
+    "SelectAuthor": "Select author",
+    "SelectBookType": "Select a book type",
     "AuthorDeletionConfirmationMessage": "Are you sure to delete the author '{0}'?",
     "BirthDate": "Birth date",
     "NewAuthor": "New author",
-
+    "Details": "Details",
+    "Permission": "Details book",
     "Menu:BooksOrder": "Books Order",
     "BooksOrder": "Books Order",
     "Permission:BooksOrder": "Order Management",
@@ -55,6 +61,7 @@
     "Permission:BooksOrder.Status": "Change status",
     "Permission:BooksOrder.Client": "Check my orders",
     "Permission:BooksOrder.MakeOrder": "Make order the books",
-    "Confirm": "Confirm purchase"
+    "Permission:BooksOrder.ChangeStatus": "Change status purchase",
+    "ChangeStatus": "Change status purchase"
   }
 }

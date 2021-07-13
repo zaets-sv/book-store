@@ -94,9 +94,9 @@
         <form [formGroup]="form" (ngSubmit)="save()">
 
           <div class="form-group">
-            <label for="author-id">Author</label><span> * </span>
+            <label for="author-id">{{ '::Author' | abpLocalization }} *</label>
             <select class="form-control" id="author-id" formControlName="authorId">
-              <option [ngValue]="null">Select author</option>
+              <option [ngValue]="null">{{ '::SelectAuthor' | abpLocalization }}</option>
               <option [ngValue]="author.id" *ngFor="let author of authors$ | async">
                 {{ author.name }}
               </option>
@@ -104,29 +104,30 @@
           </div> 
 
           <div class="form-group">
-            <label for="book-name">Name</label><span> * </span>
+            <label for="book-name">{{ '::Name' | abpLocalization }}  *</label>
             <input type="text" id="book-name" class="form-control" formControlName="name" autofocus />
           </div>
       
           <div class="form-group">
-            <label for="book-price">Price</label><span> * </span>
+            <label for="book-price">{{ '::Price' | abpLocalization }} *</label>
             <input type="number" id="book-price" class="form-control" formControlName="price" />
           </div>
       
           <div class="form-group">
-            <label for="book-type">Type</label><span> * </span>
+            <label for="book-type">{{ '::Type' | abpLocalization }} *</label>
             <select class="form-control" id="book-type" formControlName="type">
-              <option [ngValue]="null">Select a book type</option>
+              <option [ngValue]="null">{{ '::SelectBookType' | abpLocalization }}</option>
               <option [ngValue]="type.value" *ngFor="let type of bookTypes"> {{ type.key }}</option>
             </select>
           </div>
       
           <div class="form-group">
-            <label>Publish date</label><span> * </span>
+            <label>{{ '::PublishDate' | abpLocalization }} *</label>
             <input
               #datepicker="ngbDatepicker"
               class="form-control"
               name="datepicker"
+              [maxDate]="currentDate"
               formControlName="publishDate"
               ngbDatepicker
               (click)="datepicker.toggle()"

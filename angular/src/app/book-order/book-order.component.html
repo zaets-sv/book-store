@@ -10,11 +10,13 @@
     </div>
     <div class="card-body">
       <ngx-datatable [rows]="allBooksOrder.items" [count]="allBooksOrder.totalCount" [list]="list" default>
+
         <ngx-datatable-column [name]="'::Actions' | abpLocalization"
                               [maxWidth]="150"
                               [sortable]="false">
           <ng-template let-row="row" ngx-datatable-cell-template>
             <div ngbDropdown container="body" class="d-inline-block">
+
               <button class="btn btn-primary btn-sm dropdown-toggle"
                       data-toggle="dropdown"
                       aria-haspopup="true"
@@ -23,17 +25,22 @@
               </button>
 
               <div ngbDropdownMenu>
-
-                <button abpPermission="BookStore.BooksOrder.Status"
+                <button abpPermission="BookStore.BooksOrder.ChangeStatus"
                       ngbDropdownItem
                       (click)="updateStatus(row.id)">
-                  {{ 'AbpAccount::Confirm' | abpLocalization }}
+                      {{ '::ChangeStatus' | abpLocalization }}
                 </button>
 
+                <button abpPermission="BookStore.BooksOrder.Details"
+                        ngbDropdownItem
+                        (click)="details(row.id)">
+                  {{ '::Details' | abpLocalization }}
+                </button>
+                
                 <button abpPermission="BookStore.BooksOrder.Delete"
                         ngbDropdownItem
                         (click)="delete(row.id)">
-                  {{ 'AbpAccount::Delete' | abpLocalization }}
+                  {{ '::Delete' | abpLocalization }}
                 </button>
               </div>
             </div>
@@ -41,8 +48,8 @@
         </ngx-datatable-column>
           <ngx-datatable-column [name]="'::Status' | abpLocalization">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <p *ngIf="row.status">Order confirmed</p>
-              <p *ngIf="!row.status">Waiting confirm</p>            
+              <p style="color: rgb(36, 153, 0);" *ngIf="row.status">Order confirmed</p>
+              <p style="color: rgb(255, 162, 0);" *ngIf="!row.status">Waiting confirm</p>
             </ng-template>
           </ngx-datatable-column>
         <ngx-datatable-column [name]="'::ClientName' | abpLocalization" prop="clientName"></ngx-datatable-column>
@@ -50,3 +57,55 @@
       </ngx-datatable>
     </div>
   </div>
+
+  <abp-modal [(visible)]="isModalOpen">
+    <ng-template #abpHeader>
+      <h2>{{ '::Details' | abpLocalization }}</h2>
+    </ng-template>
+  
+    <ng-template #abpBody>
+
+      <div class="form-group">
+        <h5>{{ '::AuthorName' | abpLocalization }}</h5>
+        <p>{{detailsBook.authorName}}</p>
+      </div>
+
+      <div class="form-group">
+        <h5>{{ '::BookName' | abpLocalization }}</h5>
+        <p>{{detailsBook.bookName}}</p>
+      </div>
+      
+      <div class="form-group">
+        <h5>{{ '::BookType' | abpLocalization }}</h5>
+        <p> {{ '::Enum:BookType:' + detailsBook.bookType | abpLocalization }}</p>
+      </div>
+
+      <div class="form-group">
+        <h5>{{ '::PublishDate' | abpLocalization }}</h5>
+        <p>{{datepipe.transform(detailsBook.publishDate, 'dd MMMM yyyy - HH:MM:SS')}}</p>
+      </div>
+
+      <div class="form-group">
+        <h5>{{ '::Price' | abpLocalization }}</h5>
+        <p>{{detailsBook.price}}</p>
+      </div>
+
+      <div class="form-group">
+        <h5>{{ '::ClientName' | abpLocalization }}</h5>
+        <p>{{detailsBook.clientName}}</p>
+      </div>
+
+      <div class="form-group">
+        <h5>{{ '::Status' | abpLocalization }}</h5>
+        <p>{{detailsBook.status}}</p>
+      </div>
+
+    </ng-template>
+  
+    <ng-template #abpFooter>
+      <button type="button" class="btn btn-secondary" abpClose>
+        {{ '::Close' | abpLocalization }}
+      </button>
+
+    </ng-template>
+  </abp-modal>
